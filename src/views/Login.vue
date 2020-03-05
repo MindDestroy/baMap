@@ -127,7 +127,7 @@ body {
   &.form-success {
     .container {
       h1 {
-        // transform: translateY(85px);
+        transform: translateY(85px);
       }
     }
   }
