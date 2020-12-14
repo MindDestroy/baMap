@@ -141,7 +141,7 @@ export default {
       var myCollection = [];
       axios
         .get(
-          "https://static.belsendiazamat.kz/api/v3/map/getAppeals?adm_divs=" + regionMod.id + "&status=" +
+          "https://static.belsendiazamat.kz/api/v3/map/getAppeals?adm_divs=" + regionMod + "&status=" +
             this.status +
             "&category=" +
             query
@@ -195,7 +195,7 @@ export default {
     },
     appealChanged() {
       console.log(this.regionModel.id);
-      this.mapAppeal(null, this.regionModel.id)
+      this.mapAppeal(this.categoryCheck != null ? this.categoryCheck : null, this.regionModel.id)
       // if (this.radioGroup == "Решено") {
       //   this.status = 0;
       //   this.mapAppeal();
@@ -206,7 +206,7 @@ export default {
     },
     categoryChanged() {
       this.categoryCheck.length > 0
-        ? this.mapAppeal(this.categoryCheck)
+        ? this.mapAppeal(this.categoryCheck, null)
         : this.mapAppeal();
     },
   },
