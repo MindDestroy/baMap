@@ -102,7 +102,7 @@ export default {
   data() {
     return {
       category: [],
-      regions: [{name: 'Muha'}, {name: 'Adik'}],
+      regions: [],
       items: [
         {
           id: "appeal_all",
@@ -153,13 +153,31 @@ export default {
                 [res.data[i].latitude, res.data[i].longitude],
                 {
                   balloonContentHeader: `<font size=3><b><a target="_blank" href="https://static.belsendiazamat.kz/appeals/${res.data[i].id}">${res.data[i].id}</a></b></font>`,
-                  balloonContentBody: `<p>${res.data[i].added_visitor.user.first_name} ${res.data[i].added_visitor.user.last_name}</p> <p>Адрес: ${res.data[i].address} </p> <p>${res.data[i].text}</p> <p>${res.data[i].status.name}</p> `,
+                  balloonContentBody: `<p>${res.data[i].added_visitor.user.first_name} ${res.data[i].added_visitor.user.last_name}</p> <p>Адрес: ${res.data[i].address} </p> <p> ${res.data[i].text}</p> <p>Статус: ${res.data[i].status.name}</p> <p>Категория: ${res.data[i].category.name}</p>`,
                   balloonContentFooter: `<font size=1>Дата: </font> <strong>${res.data[i].create_date}</strong>`,
                   clusterCaption:
                     "Обращение <strong>" + res.data[i].id + "</strong>",
                 },
                 {
-                  preset: "islands#violetIcon",
+                  preset: "islands#glyphIcon",
+                  iconGlyph: res.data[i].category.icon,
+                  iconGlyphColor: res.data[i].status.id === 6
+                      ? "#ff4444"
+                      : res.data[i].status.id === 1
+                      ? "#33b5e5"
+                      : res.data[i].status.id === 2
+                      ? "#0099CC"
+                      : res.data[i].status.id === 3
+                      ? "#00C851"
+                      : res.data[i].status.id === 4
+                      ? "#ffbb33"
+                      : res.data[i].status.id === 5
+                      ? "#aa66cc"
+                      : res.data[i].status.id === 6
+                      ? "#ff4444"
+                      : res.data[i].status.id === 8
+                      ? "#ffbb33"
+                      : "#ff4444",
                   iconColor:
                     res.data[i].status.id === 6
                       ? "#ff4444"
@@ -216,7 +234,7 @@ export default {
       ? null
       : this.$router.push("/");
     axios
-      .get("https://static.belsendiazamat.kz/fast_api/get_categories.php")
+      .get("https://static.belsendiazamat.kz/api/v3/map/getStatuses")
       .then((result) => {
         this.category = result.data;
       });
@@ -260,13 +278,31 @@ export default {
               [res.data[i].latitude, res.data[i].longitude],
               {
                 balloonContentHeader: `<font size=3><b><a target="_blank" href="https://static.belsendiazamat.kz/appeals/${res.data[i].id}">${res.data[i].id}</a></b></font>`,
-                balloonContentBody: `<p>${res.data[i].added_visitor.user.first_name} ${res.data[i].added_visitor.user.last_name}</p> <p>Адрес: ${res.data[i].address} </p><p>${res.data[i].text}</p> <p>${res.data[i].status.name}</p>`,
+                balloonContentBody: `<p>${res.data[i].added_visitor.user.first_name} ${res.data[i].added_visitor.user.last_name}</p> <p>Адрес: ${res.data[i].address} </p><p>${res.data[i].text}</p> <p>Статус: ${res.data[i].status.name}</p> <p>Категория: ${res.data[i].category.name}</p>`,
                 balloonContentFooter: `<font size=1>Дата: </font> <strong>${res.data[i].create_date}</strong>`,
                 clusterCaption:
                   "Обращение <strong>" + res.data[i].id + "</strong>",
               },
               {
-                preset: "islands#",
+                preset: "islands#glyphIcon",
+                iconGlyph: res.data[i].category.icon,
+                iconGlyphColor: res.data[i].status.id === 6
+                      ? "#ff4444"
+                      : res.data[i].status.id === 1
+                      ? "#33b5e5"
+                      : res.data[i].status.id === 2
+                      ? "#0099CC"
+                      : res.data[i].status.id === 3
+                      ? "#00C851"
+                      : res.data[i].status.id === 4
+                      ? "#ffbb33"
+                      : res.data[i].status.id === 5
+                      ? "#aa66cc"
+                      : res.data[i].status.id === 6
+                      ? "#ff4444"
+                      : res.data[i].status.id === 8
+                      ? "#ffbb33"
+                      : "#ff4444",
                 iconColor:
                     res.data[i].status.id === 6
                       ? "#ff4444"
@@ -310,10 +346,13 @@ export default {
   display: flex;
 }
 .scroll {
-  max-height: 80vh;
+  max-height: 60vh;
   overflow: scroll;
   label {
     font-size: 12px;
   }
+}
+.menu {
+  min-height: 100vh;
 }
 </style>
